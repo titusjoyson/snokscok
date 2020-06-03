@@ -34,3 +34,11 @@ class TextStyles{
   static final TextStyle caption = TextStyle(fontSize: FontSize.caption, fontWeight: FontWeight.w500, color: Pallet.sasBlack);
   static final TextStyle subHeader = TextStyle(fontSize: FontSize.subHeader, fontWeight: FontWeight.w500, color: Pallet.sasBlack);
 }
+
+class BackgroundStyles{
+  static final LinearGradient lgSilk = LinearGradient(
+      begin: Alignment.topRight,
+      end: Alignment.bottomLeft,
+      colors: [Pallet.silk, Pallet.silkDark]
+  );
+}
