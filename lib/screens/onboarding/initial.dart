@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:snokscok/themes/const.dart';
 import 'package:snokscok/components/buttons/outlineButton.dart';
@@ -28,8 +29,15 @@ class InitialPage extends StatefulWidget {
 
 class _InitialPageState extends State<InitialPage> {
 
-  void _onGoodReadsLogin(){
-
+  void _onGoodReadsLogin(event){
+    if(!event.isLoading()){
+      event.startLoading();
+      new Future.delayed(new Duration(seconds: 3), () {
+        return 100;
+      }).then((value) {
+        event.stopLoading();
+      });
+    }
   }
 
   @override
@@ -71,8 +79,8 @@ class _InitialPageState extends State<InitialPage> {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        ImageIconButton(
-                          onPressed: _onGoodReadsLogin,
+                        LoadingIconButton(
+                          onPress: _onGoodReadsLogin,
                           text: PageText.gdlogin,
                           iconImage: ImagesVar.buttonImage
                         ),

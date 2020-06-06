@@ -1,33 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:snokscok/themes/const.dart';
 
-class ImageIconButton extends StatefulWidget {
-  ImageIconButton({Key key, this.onPressed, this.text, this.iconImage})
+class LoadingIconButton extends StatefulWidget {
+  LoadingIconButton({Key key, this.onPress, this.text, this.iconImage})
       : super(key: key);
-  final GestureTapCallback onPressed;
+  final Function onPress;
   final String text;
   final String iconImage;
 
   @override
-  _ImageIconButton createState() => _ImageIconButton();
+  _LoadingIconButton createState() => _LoadingIconButton();
 }
 
-class _ImageIconButton extends State<ImageIconButton>
-    with SingleTickerProviderStateMixin {
-  bool loading = false;
-  bool showLoader = false;
-  double _width = 240;
-  double _height = 55;
-  double _radius = 10;
+class _LoadingIconButton extends State<LoadingIconButton> {
+  Color _disableColor;
+  bool _disabild = false;
+  bool _loading = false;
+  bool _showLoader = false;
+
+  // layout and animation variabils
+  
+  static double _startWidth = 240;
+  static double _endWidth = 55;
+  double _width = _startWidth;
+  static double _startHeight = 55;
+  static double _endHeight = 55;
+  double _height = _startHeight;
+  static double _startRadius = 10;
+  static double _endRadius = 100;
+  double _radius = _startRadius;
+
+  bool isLoading(){
+    return _loading;
+  }
+
+  void disableButton(){
+    setState(() {
+      _disabild = true;
+      _disableColor = Colors.transparent;
+    });
+  }
+
+  void enableButton(){
+    setState(() {
+      _disabild = false;
+      _disableColor = null;
+    });
+  }
+
+  void startLoading(){
+    disableButton();
+    setState(() {
+      _loading = true;
+      _width = _endWidth;
+      _radius = _endRadius;
+    });
+  }
+
+  void stopLoading(){
+    enableButton();
+    setState(() {
+      _loading = false;
+      _showLoader = false;
+      _width = _startWidth;
+      _radius = _startRadius;
+    });
+  }
 
   void onPress() {
-    loading = !loading;
-    setState(() {
-      loading = loading;
-      showLoader = false;
-      _width = _width == 55 ? 240 : 55;
-      _radius = _radius == 100 ? 10 : 100;
-    });
+    widget.onPress(this);
   }
 
   List<Widget> _createChildren() {
@@ -42,7 +83,7 @@ class _ImageIconButton extends State<ImageIconButton>
         padding: EdgeInsets.fromLTRB(0, 2, 0, 2),
       )
     ];
-    if (!loading) {
+    if (!_loading) {
       buttonList.add(
         Container(
           child: Text(
@@ -62,14 +103,6 @@ class _ImageIconButton extends State<ImageIconButton>
     strokeWidth: 10,
   );
 
-  EdgeInsets _getChildPadding() {
-    if (loading) {
-      return EdgeInsets.all(0.0);
-    } else {
-      return EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -78,7 +111,7 @@ class _ImageIconButton extends State<ImageIconButton>
           width: _width + 10,
           height: _height + 10,
           padding: EdgeInsets.all(5),
-          child: showLoader ? progressIndicator : Column(),
+          child: _showLoader ? progressIndicator : Column(),
           duration: Duration(milliseconds: 300),
           curve: Curves.easeInOutBack,
         ),
@@ -91,24 +124,23 @@ class _ImageIconButton extends State<ImageIconButton>
             child: Material(
               borderRadius: BorderRadius.circular(_radius),
               child: InkWell(
+                splashColor: _disableColor,
+                highlightColor: _disableColor,
                 onTap: () {
                   onPress();
                 },
-                child: Padding(
-                  padding: _getChildPadding(),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: _createChildren(),
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: _createChildren(),
                 ),
               ),
             ),
             duration: Duration(milliseconds: 300),
             curve: Curves.easeInOutBack,
-            onEnd: (){
-              if(loading){
+            onEnd: () {
+              if (_loading) {
                 setState(() {
-                  showLoader = true;
+                  _showLoader = true;
                 });
               }
             },
