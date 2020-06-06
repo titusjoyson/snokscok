@@ -15,13 +15,16 @@ class ImageIconButton extends StatefulWidget {
 class _ImageIconButton extends State<ImageIconButton>
     with SingleTickerProviderStateMixin {
   bool loading = false;
+  bool showLoader = false;
   double _width = 240;
   double _height = 55;
   double _radius = 10;
 
   void onPress() {
+    loading = !loading;
     setState(() {
-      loading = !loading;
+      loading = loading;
+      showLoader = false;
       _width = _width == 55 ? 240 : 55;
       _radius = _radius == 100 ? 10 : 100;
     });
@@ -37,7 +40,7 @@ class _ImageIconButton extends State<ImageIconButton>
           fit: BoxFit.fitHeight,
         ),
         padding: EdgeInsets.fromLTRB(0, 2, 0, 2),
-      ),
+      )
     ];
     if (!loading) {
       buttonList.add(
@@ -53,6 +56,12 @@ class _ImageIconButton extends State<ImageIconButton>
     return buttonList;
   }
 
+  Widget progressIndicator = CircularProgressIndicator(
+    backgroundColor: Colors.transparent,
+    valueColor: new AlwaysStoppedAnimation<Color>(Pallet.shabbyRed),
+    strokeWidth: 10,
+  );
+
   EdgeInsets _getChildPadding() {
     if (loading) {
       return EdgeInsets.all(0.0);
@@ -63,26 +72,49 @@ class _ImageIconButton extends State<ImageIconButton>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      width: _width,
-      height: _height,
-      child: Material(
-        borderRadius: BorderRadius.circular(_radius),
-        child: InkWell(
-          onTap: () {
-            onPress();
-          },
-          child: Padding(
-            padding: _getChildPadding(),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: _createChildren(),
+    return Stack(
+      children: <Widget>[
+        AnimatedContainer(
+          width: _width + 10,
+          height: _height + 10,
+          padding: EdgeInsets.all(5),
+          child: showLoader ? progressIndicator : Column(),
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeInOutBack,
+        ),
+        Positioned(
+          left: 5,
+          top: 5,
+          child: AnimatedContainer(
+            width: _width,
+            height: _height,
+            child: Material(
+              borderRadius: BorderRadius.circular(_radius),
+              child: InkWell(
+                onTap: () {
+                  onPress();
+                },
+                child: Padding(
+                  padding: _getChildPadding(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: _createChildren(),
+                  ),
+                ),
+              ),
             ),
+            duration: Duration(milliseconds: 300),
+            curve: Curves.easeInOutBack,
+            onEnd: (){
+              if(loading){
+                setState(() {
+                  showLoader = true;
+                });
+              }
+            },
           ),
         ),
-      ),
-      duration: Duration(milliseconds: 300),
-      curve: Curves.easeInOutBack,
+      ],
     );
   }
 }

@@ -49,11 +49,8 @@ flutter:
   assets:
      - assets/images/icons/goodreads-square-light.png
      - assets/images/icons/logonamepath.svg
-     - assets/images/flower.png
-     - assets/images/welwall.jpg
      - assets/images/backgroundone.png
-     - assets/images/backgroundtwo.png
-     - assets/lottie/fallingfragment.json
+     - assets/gifs/successanimation.gif
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

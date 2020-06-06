@@ -37,12 +37,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(
-            colorFilter: new ColorFilter.mode(Pallet.silk.withOpacity(0.5), BlendMode.dstATop),
-            image: AssetImage("assets/images/welwall.jpg"),
-            fit: BoxFit.cover,
-            alignment: Alignment.topRight,
-          ),
         ),
         child: Center(
           child:Column(
