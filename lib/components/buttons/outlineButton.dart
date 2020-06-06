@@ -18,20 +18,12 @@ class _ImageIconButton extends State<ImageIconButton>
   double _width = 240;
   double _height = 55;
   double _radius = 10;
-  double _textLength = 163;
 
   void onPress() {
     setState(() {
       loading = !loading;
-      if (loading) {
-        _width = 55;
-        _height = 55;
-        _radius = 100;
-      } else {
-        _width = 240;
-        _height = 55;
-        _radius = 10;
-      }
+      _width = _width == 55 ? 240 : 55;
+      _radius = _radius == 100 ? 10 : 100;
     });
   }
 
@@ -50,7 +42,6 @@ class _ImageIconButton extends State<ImageIconButton>
     if (!loading) {
       buttonList.add(
         Container(
-          width: _textLength,
           child: Text(
             widget.text,
             style: TextStyles.button,
@@ -62,10 +53,10 @@ class _ImageIconButton extends State<ImageIconButton>
     return buttonList;
   }
 
-  EdgeInsets _getChildPadding(){
-    if(loading){
+  EdgeInsets _getChildPadding() {
+    if (loading) {
       return EdgeInsets.all(0.0);
-    }else{
+    } else {
       return EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0);
     }
   }
@@ -90,7 +81,8 @@ class _ImageIconButton extends State<ImageIconButton>
           ),
         ),
       ),
-      duration: Duration(milliseconds: 100),
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOutBack,
     );
   }
 }
