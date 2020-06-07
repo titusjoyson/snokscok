@@ -4,8 +4,9 @@ import 'package:snokscok/themes/const.dart';
 
 
 class LightBackground extends StatelessWidget {
-  LightBackground({Key key, this.child}) : super(key: key);
+  LightBackground({Key key, this.child, this.bottomNavigationBar}) : super(key: key);
   final Widget child;
+  final Widget bottomNavigationBar;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,7 @@ class LightBackground extends StatelessWidget {
             child: child,
           )
         ),
+      bottomNavigationBar: bottomNavigationBar,
     );
   }
 }
