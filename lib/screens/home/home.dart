@@ -2,9 +2,10 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:snokscok/components/background/lightBackground.dart';
 import 'package:snokscok/themes/const.dart';
+import 'package:snokscok/screens/camera/camera.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title}): super(key: key);
+  HomePage({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
@@ -22,20 +23,31 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return LightBackground(
       child: PageView(
         controller: _pageController,
-          onPageChanged: (index) {
-            setState(() => _currentIndex = index);
-          },
-          children: <Widget>[
-            Container(color: Pallet.silk,),
-            Container(color: Pallet.silk,),
-            Container(color: Pallet.silk,),
-            Container(color: Pallet.silk,),
-            Container(color: Pallet.silk,),
-          ],
+        onPageChanged: (index) {
+          setState(() => _currentIndex = index);
+        },
+        children: <Widget>[
+          Container(
+            color: Pallet.silk,
+            child: TakePictureScreen(),
+          ),
+          Container(
+            color: Pallet.silk,
+          ),
+          Container(
+            color: Pallet.silk,
+          ),
+          Container(
+            color: Pallet.silk,
+          ),
+          Container(
+            color: Pallet.silk,
+          ),
+        ],
       ),
       bottomNavigationBar: BottomNavyBar(
         selectedIndex: _currentIndex,
@@ -45,17 +57,15 @@ class _HomePageState extends State<HomePage> {
         },
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
-            title: Text('Snap'),
-            icon: Icon(Icons.camera),
-            activeColor: Pallet.shabbyRed,
-            inactiveColor: Pallet.brownDark
-          ),
+              title: Text('Snap'),
+              icon: Icon(Icons.camera),
+              activeColor: Pallet.shabbyRed,
+              inactiveColor: Pallet.brownDark),
           BottomNavyBarItem(
-            title: Text('Books'),
-            icon: Icon(Icons.book),
-            activeColor: Pallet.shabbyRed,
-            inactiveColor: Pallet.brownDark
-          ),
+              title: Text('Books'),
+              icon: Icon(Icons.book),
+              activeColor: Pallet.shabbyRed,
+              inactiveColor: Pallet.brownDark),
           // BottomNavyBarItem(
           //   title: Text('Exchange'),
           //   icon: Icon(Icons.apps),
@@ -63,17 +73,15 @@ class _HomePageState extends State<HomePage> {
           //   inactiveColor: Pallet.brownDark
           // ),
           BottomNavyBarItem(
-            title: Text('Feeds'),
-            icon: Icon(Icons.rss_feed),
-            activeColor: Pallet.shabbyRed,
-            inactiveColor: Pallet.brownDark
-          ),
+              title: Text('Feeds'),
+              icon: Icon(Icons.rss_feed),
+              activeColor: Pallet.shabbyRed,
+              inactiveColor: Pallet.brownDark),
           BottomNavyBarItem(
-            title: Text('Settings'),
-            icon: Icon(Icons.settings),
-            activeColor: Pallet.shabbyRed,
-            inactiveColor: Pallet.brownDark
-          ),
+              title: Text('Settings'),
+              icon: Icon(Icons.settings),
+              activeColor: Pallet.shabbyRed,
+              inactiveColor: Pallet.brownDark),
         ],
       ),
     );
