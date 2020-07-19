@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-
-class Pallet{
+class Pallet {
   // #E1D4D2
   static final Color silk = const Color.fromRGBO(225, 212, 210, 1);
   // #BDB3A8
@@ -11,10 +10,10 @@ class Pallet{
   // #534858
   static final Color brownDark = const Color.fromRGBO(83, 72, 88, 1);
   // 237,97,81
-  static final Color shabbyRed = const Color.fromRGBO(237,97,81, 1);
+  static final Color shabbyRed = const Color.fromRGBO(237, 97, 81, 1);
 }
 
-class FontSize{
+class FontSize {
   static final double button = 14.00;
   static final double caption = 12.0;
   static final double bodyOne = 14.0;
@@ -28,17 +27,32 @@ class FontSize{
   static final double displayFour = 112.0;
 }
 
-class TextStyles{
-  static final TextStyle header = TextStyle(fontSize: FontSize.headline, fontWeight: FontWeight.w500, color: Pallet.sasBlack);
-  static final TextStyle button = TextStyle(fontSize: FontSize.button, fontWeight: FontWeight.w500, color: Pallet.sasBlack);
-  static final TextStyle caption = TextStyle(fontSize: FontSize.caption, fontWeight: FontWeight.w500, color: Pallet.sasBlack);
-  static final TextStyle subHeader = TextStyle(fontSize: FontSize.subHeader, fontWeight: FontWeight.w500, color: Pallet.sasBlack);
+class TextStyles {
+  static final TextStyle header = TextStyle(
+      fontSize: FontSize.headline,
+      fontWeight: FontWeight.w500,
+      color: Pallet.sasBlack);
+  static final TextStyle button = TextStyle(
+      fontSize: FontSize.button,
+      fontWeight: FontWeight.w500,
+      color: Pallet.sasBlack);
+  static final TextStyle camButton = TextStyle(
+      fontSize: FontSize.button,
+      fontWeight: FontWeight.w500,
+      color: Colors.white);
+  static final TextStyle caption = TextStyle(
+      fontSize: FontSize.caption,
+      fontWeight: FontWeight.w500,
+      color: Pallet.sasBlack);
+  static final TextStyle subHeader = TextStyle(
+      fontSize: FontSize.subHeader,
+      fontWeight: FontWeight.w500,
+      color: Pallet.sasBlack);
 }
 
-class BackgroundStyles{
+class BackgroundStyles {
   static final LinearGradient lgSilk = LinearGradient(
       begin: Alignment.topRight,
       end: Alignment.bottomLeft,
-      colors: [Pallet.silk, Pallet.silkDark]
-  );
+      colors: [Pallet.silk, Pallet.silkDark]);
 }

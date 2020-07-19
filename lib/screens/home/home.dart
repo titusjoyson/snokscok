@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:snokscok/components/background/lightBackground.dart';
 import 'package:snokscok/themes/const.dart';
 import 'package:snokscok/screens/camera/camera.dart';
+import 'package:snokscok/screens/recentClicks/recent.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -33,7 +34,7 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           Container(
             color: Pallet.silk,
-            child: TakePictureScreen(),
+            child: RecentPage(),
           ),
           Container(
             color: Pallet.silk,
