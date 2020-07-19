@@ -15,10 +15,10 @@ class CameraNavButton extends StatelessWidget {
           onTap: () {
             print("Container clicked");
           },
-          child: new Container(
+          child: Container(
             width: 165,
-            padding: new EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-            child: new Row(
+            padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+            child: Row(
               children: [
                 Icon(
                   Icons.filter_center_focus,
@@ -28,7 +28,7 @@ class CameraNavButton extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Text(
-                    "Tap To Scan",
+                    "Tap to scan",
                     style: TextStyles.camButton,
                   ),
                 ),

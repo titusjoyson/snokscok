@@ -67,12 +67,11 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.book),
               activeColor: Pallet.shabbyRed,
               inactiveColor: Pallet.brownDark),
-          // BottomNavyBarItem(
-          //   title: Text('Exchange'),
-          //   icon: Icon(Icons.apps),
-          //   activeColor: Pallet.shabbyRed,
-          //   inactiveColor: Pallet.brownDark
-          // ),
+          BottomNavyBarItem(
+              title: Text('Store'),
+              icon: Icon(Icons.store),
+              activeColor: Pallet.shabbyRed,
+              inactiveColor: Pallet.brownDark),
           BottomNavyBarItem(
               title: Text('Feeds'),
               icon: Icon(Icons.rss_feed),
