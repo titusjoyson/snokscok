@@ -11,12 +11,16 @@ class RecentPage extends StatelessWidget {
     return Container(
       child: Column(
         children: <Widget>[
-          Container(height: 20),
           HorizontalList(
             title: "Recent Snaps",
             showMore: true,
+            containerHeight: 160.0,
             onViewMorePress: () {},
-            cards: recentSugData.map((d) => CardWidget()).toList(),
+            cards: recentSugData
+                .map((d) => CardWidget(
+                      conteinarHeight: 140,
+                    ))
+                .toList(),
           ),
           HorizontalList(
             title: "Recent suggections",

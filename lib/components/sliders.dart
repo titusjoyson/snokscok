@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:snokscok/themes/const.dart';
+import 'package:snokscok/components/text.dart';
 
 class HorizontalList extends StatelessWidget {
   HorizontalList({
     this.onViewMorePress,
-    this.title = "",
-    this.containerHeight = 220.0,
-    this.showMore = false,
+    this.title: "",
+    this.containerHeight: 220.0,
+    this.showMore: false,
     this.cards,
   });
 
@@ -23,22 +24,17 @@ class HorizontalList extends StatelessWidget {
       return null;
     } else {
       return Container(
-        margin: EdgeInsets.fromLTRB(20, 20, 10, 0),
+        margin: EdgeInsets.fromLTRB(12, 20, 5, 0),
         height: 40,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            this.title != ""
-                ? Text(
-                    title,
-                    style: TextStyles.subHeader,
-                  )
-                : null,
+            this.title != "" ? SubHeader(title) : null,
             showMore
                 ? FlatButton(
                     onPressed: this.onViewMorePress,
                     padding: EdgeInsets.all(0),
-                    child: Text("View More", style: TextStyles.caption),
+                    child: Caption("View More"),
                   )
                 : null
           ].where((child) => child != null).toList(),
@@ -50,6 +46,7 @@ class HorizontalList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

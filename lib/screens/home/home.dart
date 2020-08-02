@@ -2,7 +2,6 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:snokscok/components/background/lightBackground.dart';
 import 'package:snokscok/themes/const.dart';
-import 'package:snokscok/screens/camera/camera.dart';
 import 'package:snokscok/screens/recentClicks/recent.dart';
 
 class HomePage extends StatefulWidget {
