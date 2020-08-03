@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:snokscok/components/text.dart';
 
 class CardWidget extends StatelessWidget {
   final double conteinarHeight;
@@ -40,55 +39,6 @@ class CardWidget extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class CardTitle extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return Text("The Book Of Grim Reaper");
-  }
-}
-
-class WideCardWidget extends StatelessWidget {
-  var imageUrl = 'https://picsum.photos/140/200/';
-
-  Widget build(BuildContext context) {
-    return Card(
-      //margin: EdgeInsets.all(value),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: 140,
-            height: 200,
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: () {
-                  print("Container clicked");
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    image: DecorationImage(
-                      //alignment: Alignment(-.2, 0),
-                      image: NetworkImage(imageUrl),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Column(
-            children: <Widget>[
-              CardTitle(),
-            ],
-          )
-        ],
       ),
     );
   }
