@@ -1,22 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:snokscok/components/background/lightBackground.dart';
 import 'package:snokscok/components/card.dart';
-import 'package:snokscok/themes/const.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:snokscok/components/text.dart';
+import 'package:snokscok/components/layout/appBar.dart';
 
 class ListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LightBackground(
-      appBar: AppBar(
-        title: new Text(
-          "Hello World",
-          style: TextStyle(color: Colors.black),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-      ),
+      appBar: TransparentAppBar(title: "Recent Matches"),
       child: StaggeredGridView.countBuilder(
         crossAxisCount: 3,
         itemCount: 500,
