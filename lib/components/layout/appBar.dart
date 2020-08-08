@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:snokscok/themes/const.dart';
 
 class TransparentAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -14,10 +15,13 @@ class TransparentAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: new Text(
         this.title,
-        style: TextStyle(color: Colors.black),
+        style: TextStyle(color: Pallet.sasBlack),
       ),
       backgroundColor: Colors.transparent,
       elevation: 0.0,
+      iconTheme: IconThemeData(
+        color: Pallet.sasBlack, //change your color here
+      ),
     );
   }
 }

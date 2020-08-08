@@ -4,6 +4,7 @@ import 'package:snokscok/screens/onboarding/initial.dart';
 import 'package:snokscok/themes/const.dart';
 import 'package:snokscok/screens/home/home.dart';
 import 'package:snokscok/screens/listscreen/listScreen.dart';
+import 'package:snokscok/screens/camera/camera.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,11 +22,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: 'listScreen',
+      initialRoute: 'home',
       routes: {
         'initial': (context) => InitialPage(title: 'Snokscok On board'),
         'home': (context) => HomePage(title: 'Home Page'),
         "listScreen": (context) => ListScreen(),
+        "camera": (context) => TakePictureScreen(),
       },
     );
   }

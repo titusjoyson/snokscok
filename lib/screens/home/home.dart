@@ -4,6 +4,20 @@ import 'package:snokscok/components/background/lightBackground.dart';
 import 'package:snokscok/themes/const.dart';
 import 'package:snokscok/screens/recentClicks/recent.dart';
 
+class PageContainer extends StatelessWidget {
+  PageContainer({this.child});
+  Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+      color: Pallet.silk,
+      child: this.child,
+    );
+  }
+}
+
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
   final String title;
@@ -31,8 +45,7 @@ class _HomePageState extends State<HomePage> {
           setState(() => _currentIndex = index);
         },
         children: <Widget>[
-          Container(
-            color: Pallet.silk,
+          PageContainer(
             child: RecentPage(),
           ),
           Container(

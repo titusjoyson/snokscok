@@ -15,7 +15,9 @@ class RecentPage extends StatelessWidget {
             title: "Recent Snaps",
             showMore: true,
             containerHeight: 160.0,
-            onViewMorePress: () {},
+            onViewMorePress: () {
+              Navigator.pushNamed(context, 'listScreen');
+            },
             cards: recentSugData
                 .map((d) => CardWidget(
                       conteinarHeight: 140,
@@ -32,7 +34,9 @@ class RecentPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                CameraNavButton(),
+                CameraNavButton(onClick: () {
+                  Navigator.pushNamed(context, 'camera');
+                }),
               ],
             ),
           ),

@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:snokscok/themes/const.dart';
 
 class CameraNavButton extends StatelessWidget {
+  CameraNavButton({this.onClick});
+
+  Function onClick;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,7 +17,7 @@ class CameraNavButton extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: () {
-            print("Container clicked");
+            this.onClick();
           },
           child: Container(
             width: 165,
