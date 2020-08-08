@@ -5,9 +5,6 @@ class MiniPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: 60.0,
-      // width: 60.0,
-      //padding: EdgeInsets.all(20.0),
       margin: EdgeInsets.all(40),
       decoration: BoxDecoration(
         border: Border.all(color: Pallet.silkDark, width: 1.0),
