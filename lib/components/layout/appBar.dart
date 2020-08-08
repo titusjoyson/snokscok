@@ -22,6 +22,7 @@ class TransparentAppBar extends StatelessWidget implements PreferredSizeWidget {
       iconTheme: IconThemeData(
         color: Pallet.sasBlack, //change your color here
       ),
+      centerTitle: true,
     );
   }
 }
