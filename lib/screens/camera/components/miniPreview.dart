@@ -17,7 +17,7 @@ class MiniPreview extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             //color: Pallet.silkDark,
             image: DecorationImage(
-              image: NetworkImage('https://picsum.photos/140/200/'),
+              image: NetworkImage('https://picsum.photos/1000/1200/'),
               fit: BoxFit.fill,
             ),
           ),
