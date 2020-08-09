@@ -81,13 +81,49 @@ class DisplayPictureScreen extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     flex: 1,
-                    child: Container(
+                    child: Material(
                       color: Pallet.brownDark,
+                      child: InkWell(
+                        onTap: () {},
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.filter_center_focus,
+                              color: Colors.white,
+                              size: 35.0,
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                   Expanded(
                     flex: 2,
-                    child: Container(),
+                    child: Container(
+                      color: Colors.transparent,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Material(
+                      color: Pallet.brownDark,
+                      child: InkWell(
+                        onTap: () {},
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              color: Colors.white,
+                              size: 30.0,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
