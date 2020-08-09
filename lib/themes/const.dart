@@ -32,14 +32,6 @@ class TextStyles {
       fontSize: FontSize.headline,
       fontWeight: FontWeight.w500,
       color: Pallet.sasBlack);
-  static final TextStyle button = TextStyle(
-      fontSize: FontSize.button,
-      fontWeight: FontWeight.w500,
-      color: Pallet.sasBlack);
-  static final TextStyle camButton = TextStyle(
-      fontSize: FontSize.button,
-      fontWeight: FontWeight.w500,
-      color: Colors.white);
   static final TextStyle caption = TextStyle(
       fontSize: FontSize.caption,
       fontWeight: FontWeight.w500,
@@ -48,6 +40,22 @@ class TextStyles {
       fontSize: FontSize.subHeader,
       fontWeight: FontWeight.w500,
       color: Pallet.sasBlack);
+  static final TextStyle body = TextStyle(
+      fontSize: FontSize.bodyOne,
+      fontWeight: FontWeight.w500,
+      color: Pallet.sasBlack);
+  static final TextStyle bodyTwo = TextStyle(
+    fontSize: FontSize.bodyOne,
+    color: Pallet.sasBlack,
+  );
+  static final TextStyle button = TextStyle(
+      fontSize: FontSize.button,
+      fontWeight: FontWeight.w500,
+      color: Pallet.sasBlack);
+  static final TextStyle camButton = TextStyle(
+      fontSize: FontSize.button,
+      fontWeight: FontWeight.w500,
+      color: Colors.white);
 }
 
 class BackgroundStyles {

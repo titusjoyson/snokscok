@@ -6,6 +6,40 @@ import 'package:snokscok/components/background/lightBackground.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:snokscok/themes/const.dart';
 import 'package:snokscok/components/carousel/fullCarousel.dart';
+import 'package:snokscok/components/text.dart';
+
+class CarouselComponent extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
+      child: Column(
+        children: <Widget>[
+          CarouselLarge(),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.65,
+            margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+            child: Column(
+              //mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Header("Red Rose"),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                  child: BodyLite("Drama | 2h 20m"),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                  child: SubHeader("IMDB 6.6/10"),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
 
 class DisplayPictureScreen extends StatelessWidget {
   final String imagePath;
@@ -21,25 +55,10 @@ class DisplayPictureScreen extends StatelessWidget {
   }
 
   getLoader() {
-    return Center(
-      child: Container(
-        //margin: EdgeInsets.fromLTRB(0, 120, 0, 0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SpinKitCubeGrid(
-              color: Pallet.shabbyRed,
-              size: 40.0,
-            ),
-          ],
-        ),
-      ),
+    return SpinKitCubeGrid(
+      color: Pallet.shabbyRed,
+      size: 40.0,
     );
-  }
-
-  getChildComponents() {
-    return CarouselLarge();
   }
 
   @override
@@ -50,7 +69,32 @@ class DisplayPictureScreen extends StatelessWidget {
       ),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
-      child: getChildComponents(),
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            CarouselComponent(),
+            Container(
+              height: 80,
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      color: Pallet.brownDark,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Container(),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

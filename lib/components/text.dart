@@ -39,3 +39,29 @@ class Caption extends StatelessWidget {
     );
   }
 }
+
+class BodyNormal extends StatelessWidget {
+  final String text;
+  BodyNormal(this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      this.text,
+      style: TextStyles.body,
+    );
+  }
+}
+
+class BodyLite extends StatelessWidget {
+  final String text;
+  BodyLite(this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      this.text,
+      style: TextStyles.bodyTwo,
+    );
+  }
+}
