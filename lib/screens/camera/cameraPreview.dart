@@ -12,29 +12,10 @@ class CarouselComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
+      margin: EdgeInsets.fromLTRB(0, 50, 0, 50),
       child: Column(
         children: <Widget>[
           CarouselLarge(),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.65,
-            margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-            child: Column(
-              //mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Header("Red Rose"),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                  child: BodyLite("Drama | 2h 20m"),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                  child: SubHeader("IMDB 6.6/10"),
-                ),
-              ],
-            ),
-          )
         ],
       ),
     );
@@ -75,59 +56,6 @@ class DisplayPictureScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             CarouselComponent(),
-            Container(
-              height: 80,
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    flex: 1,
-                    child: Material(
-                      color: Pallet.brownDark,
-                      child: InkWell(
-                        onTap: () {},
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(
-                              Icons.filter_center_focus,
-                              color: Colors.white,
-                              size: 35.0,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      color: Colors.transparent,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Material(
-                      color: Pallet.brownDark,
-                      child: InkWell(
-                        onTap: () {},
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              color: Colors.white,
-                              size: 30.0,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
           ],
         ),
       ),

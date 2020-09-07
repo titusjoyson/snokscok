@@ -18,7 +18,7 @@ class CarouselLarge extends StatelessWidget {
           enableInfiniteScroll: false,
           initialPage: 0,
           autoPlay: false,
-          viewportFraction: 0.65,
+          viewportFraction: 0.70,
         ),
         items: imgList
             .map(
