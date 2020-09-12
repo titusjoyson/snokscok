@@ -6,7 +6,6 @@ import 'package:snokscok/components/background/lightBackground.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:snokscok/themes/const.dart';
 import 'package:snokscok/components/carousel/fullCarousel.dart';
-import 'package:snokscok/components/text.dart';
 
 class CarouselComponent extends StatelessWidget {
   @override
