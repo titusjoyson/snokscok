@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -10,14 +12,10 @@ import 'package:snokscok/screens/camera/cameraPreview.dart';
 import 'package:snokscok/screens/camera/components/camButton.dart';
 import 'package:snokscok/screens/camera/components/miniPreview.dart';
 
-Future<void> main() async {
-  // Ensure that plugin services are initialized so that `availableCameras()`
-  // can be called before `runApp()`
-  WidgetsFlutterBinding.ensureInitialized();
-
-  // Obtain a list of the available cameras on the device.
-  final cameras = await availableCameras();
-}
+import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:snokscok/com/services/tliteServices.dart';
+import 'package:snokscok/com/services/cameraServices.dart';
+import 'package:snokscok/com/models/result.dart';
 
 // A screen that allows users to take a picture using a given camera.
 class TakePictureScreen extends StatefulWidget {
@@ -27,73 +25,63 @@ class TakePictureScreen extends StatefulWidget {
   TakePictureScreenState createState() => TakePictureScreenState();
 }
 
-class TakePictureScreenState extends State<TakePictureScreen> {
-  bool isCameraReady;
-  CameraController _controller;
-  Future<void> _initializeControllerFuture;
+class TakePictureScreenState extends State<TakePictureScreen>
+    with TickerProviderStateMixin {
+  AnimationController _colorAnimController;
+  Animation _colorTween;
 
-  @override
+  List<Result> outputs;
+
   void initState() {
     super.initState();
-    _initializeCamera();
-  }
 
-  Future<void> _initializeCamera() async {
-    final cameras = await availableCameras();
-    final firstCamera = cameras.first;
-    _controller = CameraController(firstCamera, ResolutionPreset.high);
-    _initializeControllerFuture = _controller.initialize();
-    if (!mounted) {
-      return;
-    }
-    setState(() {
-      isCameraReady = true;
+    //Load TFLite Model
+    TFLiteService.loadModel().then((value) {
+      setState(() {
+        TFLiteService.modelLoaded = true;
+      });
     });
-  }
 
-  @override
-  void dispose() {
-    // Dispose of the controller when the widget is disposed.
-    _controller.dispose();
-    super.dispose();
-  }
+    //Initialize Camera
+    CameraService.initializeCamera();
 
-  Future<void> takePicture() async {
-    try {
-      // Ensure that the camera is initialized.
-      await _initializeControllerFuture;
-      // Construct the path where the image should be saved using the
-      // pattern package.
-      final path = join(
-        // Store the picture in the temp directory.
-        // Find the temp directory using the `path_provider` plugin.
-        (await getTemporaryDirectory()).path,
-        '${DateTime.now()}.png',
-      );
-      // Attempt to take a picture and log where it's been saved.
-      await _controller.takePicture(path);
-      // If the picture was taken, display it on a new screen.
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DisplayPictureScreen(imagePath: path),
-        ),
-      );
-    } catch (e) {
-      // If an error occurs, log the error to the console.
-      print(e);
-    }
+    //Setup Animation
+    _setupAnimation();
+
+    //Subscribe to TFLite's Classify events
+    TFLiteService.tfLiteResultsController.stream.listen(
+        (value) {
+          value.forEach((element) {
+            _colorAnimController.animateTo(element.confidence,
+                curve: Curves.bounceIn, duration: Duration(milliseconds: 500));
+          });
+
+          //Set Results
+          outputs = value;
+
+          //Update results on screen
+          setState(() {
+            //Set bit to false to allow detection again
+            CameraService.isDetecting = false;
+          });
+        },
+        onDone: () {},
+        onError: (error) {
+          print(error);
+        });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (isCameraReady == false) {
+    if (TFLiteService.modelLoaded) {
       return LightBackground(
         appBar: TransparentAppBar(
           title: "Camera",
         ),
       );
     }
+    double width = MediaQuery.of(context).size.width;
+
     return LightBackground(
       appBar: TransparentAppBar(
         title: "Camera",
@@ -106,11 +94,16 @@ class TakePictureScreenState extends State<TakePictureScreen> {
           Expanded(
             flex: 4,
             child: FutureBuilder<void>(
-              future: _initializeControllerFuture,
+              future: CameraService.initializeControllerFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   // If the Future is complete, display the preview.
-                  return CameraPreview(_controller);
+                  return Stack(
+                    children: <Widget>[
+                      CameraPreview(CameraService.camera),
+                      _buildResultsWidget(width, outputs)
+                    ],
+                  );
                 } else {
                   // Otherwise, display a loading indicator.
                   return Center(child: CircularProgressIndicator());
@@ -140,5 +133,72 @@ class TakePictureScreenState extends State<TakePictureScreen> {
         ],
       ),
     );
+  }
+
+  Widget _buildResultsWidget(double width, List<Result> outputs) {
+    return Positioned.fill(
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: Container(
+          height: 200.0,
+          width: width,
+          color: Colors.white,
+          child: outputs != null && outputs.isNotEmpty
+              ? ListView.builder(
+                  itemCount: outputs.length,
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(20.0),
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      children: <Widget>[
+                        Text(
+                          outputs[index].label,
+                          style: TextStyle(
+                            color: _colorTween.value,
+                            fontSize: 20.0,
+                          ),
+                        ),
+                        AnimatedBuilder(
+                            animation: _colorAnimController,
+                            builder: (context, child) => LinearPercentIndicator(
+                                  width: width * 0.88,
+                                  lineHeight: 14.0,
+                                  percent: outputs[index].confidence,
+                                  progressColor: _colorTween.value,
+                                )),
+                        Text(
+                          "${(outputs[index].confidence * 100.0).toStringAsFixed(2)} %",
+                          style: TextStyle(
+                            color: _colorTween.value,
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ],
+                    );
+                  })
+              : Center(
+                  child: Text("Wating for model to detect..",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20.0,
+                      ))),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    TFLiteService.disposeModel();
+    CameraService.camera.dispose();
+    print("dispose: Clear resources.");
+    super.dispose();
+  }
+
+  void _setupAnimation() {
+    _colorAnimController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    _colorTween = ColorTween(begin: Colors.green, end: Colors.red)
+        .animate(_colorAnimController);
   }
 }
