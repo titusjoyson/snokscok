@@ -4,8 +4,8 @@ import 'package:snokscok/components/sliders.dart';
 import 'package:snokscok/components/card.dart';
 
 class RecentPage extends StatelessWidget {
-  final recentSugData = [{}, {}, {}, {}, {}];
-  final recentSnapData = [{}, {}, {}, {}, {}];
+  final recentSugData = [];
+  final recentSnapData = [];
   @override
   Widget build(BuildContext context) {
     return Container(

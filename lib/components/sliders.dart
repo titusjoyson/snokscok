@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:snokscok/themes/const.dart';
 import 'package:snokscok/components/text.dart';
 
 class HorizontalList extends StatelessWidget {
