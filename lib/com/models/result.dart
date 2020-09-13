@@ -1,7 +1,17 @@
-class Result {
-  double confidence;
-  int id;
-  String label;
+class Rec {
+  double x;
+  double y;
+  double w;
+  double h;
 
-  Result(this.confidence, this.id, this.label);
+  Rec(this.x, this.y, this.w, this.h);
+}
+
+class Result {
+  double confidenceInClass;
+  String detectedClass;
+
+  Rec rec;
+
+  Result(this.confidenceInClass, this.detectedClass, this.rec);
 }

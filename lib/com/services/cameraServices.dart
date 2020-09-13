@@ -25,7 +25,7 @@ class CameraService {
         await _getCamera(_direction),
         defaultTargetPlatform == TargetPlatform.iOS
             ? ResolutionPreset.low
-            : ResolutionPreset.high,
+            : ResolutionPreset.medium,
         enableAudio: false);
     initializeControllerFuture = camera.initialize().then((value) {
       print("_initializeCamera: Camera initialized, starting camera stream..");

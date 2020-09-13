@@ -1,11 +1,8 @@
-import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart' show join;
-import 'package:path_provider/path_provider.dart';
 import 'package:snokscok/components/layout/appBar.dart';
 import 'package:snokscok/components/background/lightBackground.dart';
 import 'package:snokscok/screens/camera/cameraPreview.dart';
@@ -52,7 +49,7 @@ class TakePictureScreenState extends State<TakePictureScreen>
     TFLiteService.tfLiteResultsController.stream.listen(
         (value) {
           value.forEach((element) {
-            _colorAnimController.animateTo(element.confidence,
+            _colorAnimController.animateTo(element.confidenceInClass,
                 curve: Curves.bounceIn, duration: Duration(milliseconds: 500));
           });
 
@@ -73,7 +70,7 @@ class TakePictureScreenState extends State<TakePictureScreen>
 
   @override
   Widget build(BuildContext context) {
-    if (TFLiteService.modelLoaded) {
+    if (!TFLiteService.modelLoaded) {
       return LightBackground(
         appBar: TransparentAppBar(
           title: "Camera",
@@ -101,7 +98,7 @@ class TakePictureScreenState extends State<TakePictureScreen>
                   return Stack(
                     children: <Widget>[
                       CameraPreview(CameraService.camera),
-                      _buildResultsWidget(width, outputs)
+                      _buildBoundingBoxWidget(width, outputs)
                     ],
                   );
                 } else {
@@ -135,14 +132,16 @@ class TakePictureScreenState extends State<TakePictureScreen>
     );
   }
 
-  Widget _buildResultsWidget(double width, List<Result> outputs) {
+  Widget _buildBoundingBoxWidget(double width, List<Result> outputs) {
     return Positioned.fill(
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Container(
           height: 200.0,
           width: width,
-          color: Colors.white,
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+          ),
           child: outputs != null && outputs.isNotEmpty
               ? ListView.builder(
                   itemCount: outputs.length,
@@ -152,22 +151,14 @@ class TakePictureScreenState extends State<TakePictureScreen>
                     return Column(
                       children: <Widget>[
                         Text(
-                          outputs[index].label,
+                          outputs[index].detectedClass,
                           style: TextStyle(
                             color: _colorTween.value,
                             fontSize: 20.0,
                           ),
                         ),
-                        AnimatedBuilder(
-                            animation: _colorAnimController,
-                            builder: (context, child) => LinearPercentIndicator(
-                                  width: width * 0.88,
-                                  lineHeight: 14.0,
-                                  percent: outputs[index].confidence,
-                                  progressColor: _colorTween.value,
-                                )),
                         Text(
-                          "${(outputs[index].confidence * 100.0).toStringAsFixed(2)} %",
+                          "${(outputs[index].confidenceInClass * 100.0).toStringAsFixed(2)} %",
                           style: TextStyle(
                             color: _colorTween.value,
                             fontSize: 16.0,
