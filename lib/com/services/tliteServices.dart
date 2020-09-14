@@ -13,9 +13,9 @@ class TFLiteService {
   static Future<String> loadModel() async {
     print("loadModel: Loading model..");
     return Tflite.loadModel(
-        model: "assets/tflite/ssd_mobilenet.tflite",
-        labels: "assets/tflite/ssd_mobilenet.txt",
-        numThreads: 1, // defaults to 1
+        model: "assets/tflite/detect.tflite",
+        labels: "assets/tflite/labelmap.txt",
+        numThreads: 2, // defaults to 1
         isAsset:
             true, // defaults to true, set to false to load resources outside assets
         useGpuDelegate:
@@ -34,7 +34,6 @@ class TFLiteService {
       imageMean: 127.5, // defaults to 127.5
       imageStd: 127.5, // defaults to 127.5
       rotation: 90, // defaults to 90, Android only
-      //numResults: 2, // defaults to 5
       threshold: 0.6, // defaults to 0.1
       asynch: true,
     ).then((value) {
