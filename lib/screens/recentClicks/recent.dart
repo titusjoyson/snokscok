@@ -6,6 +6,11 @@ import 'package:snokscok/components/card.dart';
 class RecentPage extends StatelessWidget {
   final recentSugData = [];
   final recentSnapData = [];
+
+  Future startScan() async {
+    //String imagePath = await EdgeDetection.detectEdge;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,7 +40,8 @@ class RecentPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 CameraNavButton(onClick: () {
-                  Navigator.pushNamed(context, 'camera');
+                  // dNavigator.pushNamed(context, 'camera');
+                  startScan();
                 }),
               ],
             ),
