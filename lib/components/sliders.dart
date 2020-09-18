@@ -23,7 +23,7 @@ class HorizontalList extends StatelessWidget {
       return null;
     } else {
       return Container(
-        margin: EdgeInsets.fromLTRB(12, 20, 5, 0),
+        margin: EdgeInsets.fromLTRB(12, 0, 5, 20),
         height: 40,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

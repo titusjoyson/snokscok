@@ -3,13 +3,24 @@ import 'package:snokscok/themes/const.dart';
 
 class Header extends StatelessWidget {
   final String title;
-  Header(this.title);
+  final TextStyle style;
+  final TextAlign textAlign;
+  Header(this.title, {this.style, this.textAlign});
+
+  TextStyle getStyle() {
+    if (this.style != null) {
+      return TextStyles.header.merge(this.style);
+    } else {
+      return TextStyles.header;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Text(
       this.title,
-      style: TextStyles.header,
+      style: getStyle(),
+      textAlign: this.textAlign,
     );
   }
 }

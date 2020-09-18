@@ -34,15 +34,17 @@ class LightBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: BackgroundStyles.lgSilk,
-      ),
-      child: Scaffold(
-        appBar: this.appBar,
-        backgroundColor: Colors.transparent,
-        body: Center(child: child),
-        bottomNavigationBar: bottomNavigationBar,
+    return SafeArea(
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: BackgroundStyles.lgSilk,
+        ),
+        child: Scaffold(
+          appBar: this.appBar,
+          backgroundColor: Colors.transparent,
+          body: Center(child: child),
+          bottomNavigationBar: bottomNavigationBar,
+        ),
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:snokscok/components/background/lightBackground.dart';
 import 'package:snokscok/themes/const.dart';
 import 'package:snokscok/screens/recentClicks/recent.dart';
+import 'package:snokscok/screens/commingSoon/soon.dart';
 
 class PageContainer extends StatelessWidget {
   PageContainer({this.child});
@@ -27,13 +28,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
   PageController _pageController;
 
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
+    _pageController = PageController(initialPage: _currentIndex);
   }
 
   @override
@@ -49,15 +50,19 @@ class _HomePageState extends State<HomePage> {
             child: RecentPage(),
           ),
           Container(
+            child: CommingSoon(),
             color: Pallet.silk,
           ),
           Container(
+            child: CommingSoon(),
             color: Pallet.silk,
           ),
           Container(
+            child: CommingSoon(),
             color: Pallet.silk,
           ),
           Container(
+            child: CommingSoon(),
             color: Pallet.silk,
           ),
         ],
