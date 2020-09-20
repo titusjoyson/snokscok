@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:snokscok/themes/const.dart';
 
-class CameraNavButton extends StatelessWidget {
-  CameraNavButton({this.onClick});
+class BarcodeNavButton extends StatelessWidget {
+  BarcodeNavButton({this.onClick});
 
   Function onClick;
 
@@ -27,14 +27,14 @@ class CameraNavButton extends StatelessWidget {
             child: Row(
               children: [
                 Icon(
-                  FontAwesome.align_left,
+                  FontAwesome.barcode,
                   color: Colors.white,
                   size: 30.0,
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Text(
-                    "Scan Title",
+                    "Scan Barcode",
                     style: TextStyles.camButton,
                   ),
                 ),

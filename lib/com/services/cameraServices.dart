@@ -18,7 +18,7 @@ class CameraService {
     );
   }
 
-  static void initializeCamera() async {
+  static void initializeCamera({Function callback}) async {
     print("_initializeCamera: Initializing camera..");
 
     camera = CameraController(
@@ -28,18 +28,17 @@ class CameraService {
             : ResolutionPreset.medium,
         enableAudio: false);
     initializeControllerFuture = camera.initialize().then((value) {
-      print("_initializeCamera: Camera initialized, starting camera stream..");
-
-      camera.startImageStream((CameraImage image) {
-        if (!TFLiteService.modelLoaded) return;
-        if (isDetecting) return;
-        isDetecting = true;
-        try {
-          TFLiteService.classifyImage(image);
-        } catch (e) {
-          print(e);
-        }
-      });
+      callback(camera: camera);
+      //camera.startImageStream((CameraImage image) {
+      // if (!TFLiteService.modelLoaded) return;
+      // if (isDetecting) return;
+      // isDetecting = true;
+      // try {
+      //   TFLiteService.classifyImage(image);
+      // } catch (e) {
+      //   print(e);
+      // }
+      //});
     });
   }
 }

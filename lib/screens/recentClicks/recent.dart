@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:snokscok/components/buttons/cameraNavButton.dart';
+import 'package:snokscok/components/buttons/barcodeNavButton.dart';
 import 'package:snokscok/components/sliders.dart';
 import 'package:snokscok/components/card.dart';
 
-class RecentPage extends StatelessWidget {
+class RecentPage extends StatefulWidget {
+  @override
+  _RecentPageState createState() => new _RecentPageState();
+}
+
+class _RecentPageState extends State<RecentPage> {
+  String _imagePath = 'Unknown';
   final recentSugData = [];
   final recentSnapData = [];
 
-  Future startScan() async {
-    //String imagePath = await EdgeDetection.detectEdge;
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future startScan(module) async {
+    if (module == "ocr") {
+    } else {}
   }
 
   @override
@@ -36,12 +49,16 @@ class RecentPage extends StatelessWidget {
             cards: recentSugData.map((d) => CardWidget()).toList(),
           ),
           Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 CameraNavButton(onClick: () {
-                  // dNavigator.pushNamed(context, 'camera');
-                  startScan();
+                  Navigator.pushNamed(context, 'camera');
+                  // startScan("ocr");
+                }),
+                BarcodeNavButton(onClick: () {
+                  Navigator.pushNamed(context, 'camera');
+                  // startScan("barcode");
                 }),
               ],
             ),

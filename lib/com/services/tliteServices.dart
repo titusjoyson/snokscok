@@ -8,7 +8,7 @@ class TFLiteService {
   static StreamController<List<Result>> tfLiteResultsController =
       new StreamController.broadcast();
   static List<Result> _outputs = List();
-  static var modelLoaded = false;
+  static bool modelLoaded = false;
 
   static Future<String> loadModel() async {
     print("loadModel: Loading model..");

@@ -5,16 +5,14 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:snokscok/components/layout/appBar.dart';
 import 'package:snokscok/components/background/lightBackground.dart';
+import 'package:snokscok/screens/camera/cameraPreview.dart';
 import 'package:snokscok/screens/camera/components/camButton.dart';
 import 'package:snokscok/screens/camera/components/miniPreview.dart';
 
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:snokscok/com/services/tliteServices.dart';
 import 'package:snokscok/com/services/cameraServices.dart';
-import 'package:snokscok/com/services/mlkit.dart';
-import 'package:snokscok/com/services/imageUtils.dart';
 import 'package:snokscok/com/models/result.dart';
-
-import 'package:image/image.dart' as imglib;
 
 // A screen that allows users to take a picture using a given camera.
 class TakePictureScreen extends StatefulWidget {
@@ -28,54 +26,51 @@ class TakePictureScreenState extends State<TakePictureScreen>
     with TickerProviderStateMixin {
   AnimationController _colorAnimController;
   Animation _colorTween;
-  MlKitServices _mlkitServices;
 
-  bool camLoaded = false;
   List<Result> outputs;
-
-  static int currentTimeInSeconds() {
-    var ms = (new DateTime.now()).millisecondsSinceEpoch;
-    return (ms / 1000).round();
-  }
-
-  var lastFrameProcess = currentTimeInSeconds();
-  void onCameraInit({CameraController camera}) {
-    camera.startImageStream((CameraImage cameraImage) {
-      CameraService.isDetecting = true;
-      try {
-        // do your stuff
-        var currentFrameProcess = currentTimeInSeconds();
-        var processDiff = currentFrameProcess - lastFrameProcess;
-        lastFrameProcess = currentFrameProcess;
-
-        // Process one frame per second
-        if (processDiff >= 1) {
-          imglib.Image image = ImageUtils.convertImagetoPng(cameraImage);
-          _mlkitServices.detectFromBinary(image);
-          print(image);
-        }
-      } catch (e) {
-        print(e);
-      }
-    });
-
-    this.setState(() {
-      camLoaded = true;
-    });
-  }
 
   void initState() {
     super.initState();
 
-    //Initialize Camera
-    CameraService.initializeCamera(callback: onCameraInit);
+    //Load TFLite Model
+    TFLiteService.loadModel().then((value) {
+      setState(() {
+        TFLiteService.modelLoaded = true;
+      });
+    });
 
-    this._mlkitServices = MlKitServices();
+    //Initialize Camera
+    CameraService.initializeCamera();
+
+    //Setup Animation
+    _setupAnimation();
+
+    //Subscribe to TFLite's Classify events
+    TFLiteService.tfLiteResultsController.stream.listen(
+        (value) {
+          value.forEach((element) {
+            _colorAnimController.animateTo(element.confidenceInClass,
+                curve: Curves.bounceIn, duration: Duration(milliseconds: 500));
+          });
+
+          //Set Results
+          outputs = value;
+
+          //Update results on screen
+          setState(() {
+            //Set bit to false to allow detection again
+            CameraService.isDetecting = false;
+          });
+        },
+        onDone: () {},
+        onError: (error) {
+          print(error);
+        });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!camLoaded) {
+    if (!TFLiteService.modelLoaded) {
       return LightBackground(
         appBar: TransparentAppBar(
           title: "Camera",
@@ -185,6 +180,16 @@ class TakePictureScreenState extends State<TakePictureScreen>
 
   @override
   void dispose() {
+    TFLiteService.disposeModel();
+    CameraService.camera.dispose();
+    print("dispose: Clear resources.");
     super.dispose();
+  }
+
+  void _setupAnimation() {
+    _colorAnimController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    _colorTween = ColorTween(begin: Colors.green, end: Colors.red)
+        .animate(_colorAnimController);
   }
 }

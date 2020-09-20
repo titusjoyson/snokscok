@@ -14,7 +14,7 @@ class CommingSoon extends StatelessWidget {
           children: [
             Center(
               child: Header(
-                "Under construction, Come back later.\n We hope you enjoy Snokscok",
+                "Under construction,\nCome back later.",
                 style: TextStyle(fontStyle: FontStyle.italic),
                 textAlign: TextAlign.center,
               ),

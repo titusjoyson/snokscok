@@ -34,8 +34,11 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: "^0.1.3"
   tflite: "^1.1.1"
-  camera: "^0.5.8+5"
+  camera: "^0.5.8+6"
   percent_indicator: "^2.1.6"
+  flutter_icons:
+  mlkit: "^0.15.1"
+  image:
 
 dev_dependencies:
   flutter_test:
